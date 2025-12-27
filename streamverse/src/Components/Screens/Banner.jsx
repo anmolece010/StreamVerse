@@ -1,0 +1,48 @@
+import React, { useEffect, useState } from "react";
+import axios from "../fetch/axios";
+import requests from "../fetch/request";
+import "./Banner.css";
+
+function Banner() {
+  const [movie, setMovie] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      const request = await axios.get(requests.fetchNetflixOriginals);
+      setMovie(
+        request.data.results[
+          Math.floor(Math.random() * request.data.results.length - 1)
+        ]
+      );
+      return request;
+    }
+    fetchData();
+  }, []);
+
+  function truncate(string, n) {
+    return string?.length > n ? string.substr(0, n - 1) + "......" : string;
+  }
+
+  return (
+    <div
+      className="banner"
+      style={{
+        backgroundImage: `url('https://image.tmdb.org/t/p/original${movie?.poster_path}')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+      }}
+    >
+      <div className="banner_contents">
+        <h1 className="banner_title">
+          {movie?.title || movie?.original_title}
+        </h1>
+        <div className="banner_buttons">
+          <button className="play_button">Play</button>
+          <button className="list_button">My List</button>
+        </div>
+        <h1 className="banner_description">{truncate(movie.overview, 250)}</h1>
+      </div>
+    </div>
+  );
+}
+
+export default Banner;
