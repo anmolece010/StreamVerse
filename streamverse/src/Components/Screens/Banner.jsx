@@ -26,9 +26,7 @@ function Banner() {
     <div
       className="banner"
       style={{
-        backgroundImage: `url('https://image.tmdb.org/t/p/original${movie?.poster_path}')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center center",
+        backgroundImage: `url('https://image.tmdb.org/t/p/original${movie?.backdrop_path}')`,
       }}
     >
       <div className="banner_contents">
@@ -36,11 +34,12 @@ function Banner() {
           {movie?.title || movie?.original_title}
         </h1>
         <div className="banner_buttons">
-          <button className="play_button">Play</button>
-          <button className="list_button">My List</button>
+          <button className="banner_button">Play</button>
+          <button className="banner_button">My List</button>
         </div>
         <h1 className="banner_description">{truncate(movie.overview, 250)}</h1>
       </div>
+      <div className="banner_fadeBottom" />
     </div>
   );
 }
