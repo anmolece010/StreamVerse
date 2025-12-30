@@ -5,11 +5,11 @@ import "./Banner.css";
 import { useNavigate } from "react-router-dom";
 
 function Banner() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [movie, setMovie] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get(requests.fetchNetflixOriginals);
+      const request = await axios.get(requests.fetchTrending);
       setMovie(
         request.data.results[
           Math.floor(Math.random() * request.data.results.length - 1)
@@ -37,7 +37,10 @@ function Banner() {
     >
       <div className="banner_contents">
         <h1 className="banner_title">
-          {movie?.title || movie?.original_title}
+          {movie?.title ||
+            movie?.original_title ||
+            movie?.name ||
+            movie?.original_name}
         </h1>
         <div className="banner_buttons">
           {/* <imgage type="image/png" src="../Images/play-button-arrowhead.png" /> */}
@@ -50,6 +53,7 @@ function Banner() {
           </button>
           <button
             className="banner_button"
+            key={movie.id}
             onClick={() => handleMovieClick(movie.id)}
           >
             <img

@@ -1,7 +1,7 @@
 .banner {
   object-fit: contain;
   position: relative;
-  height: 648px;
+  max-height: 648px;
   color: white;
   background-size: cover;
   background-position: center center;
